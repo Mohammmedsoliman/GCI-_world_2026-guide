@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>كيفية مطابقة الاسم - GCI 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+--bg-body: #fafafa;
+--bg-surface: #ffffff;
+--text-main: #27272a;
+--text-muted: #71717a;
+--primary: #0f766e;
+--primary-light: #ccfbf1;
+--border: #e4e4e7;
+--radius: 12px;
+--radius-lg: 16px;
+--transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+[data-theme="dark"] {
+--bg-body: #09090b;
+--bg-surface: #18181b;
+--text-main: #f4f4f5;
+--text-muted: #a1a1aa;
+--primary: #14b8a6;
+--primary-light: rgba(20, 184, 166, 0.15);
+--border: #27272a;
+}
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+html, body {
+overflow-x: hidden;
+scroll-behavior: smooth;
+}
+body {
+font-family: 'Cairo', sans-serif;
+background-color: var(--bg-body);
+color: var(--text-main);
+line-height: 1.85;
+display: flex;
+flex-direction: column;
+min-height: 100vh;
+transition: background-color 0.3s, color 0.3s;
+}
+.logo-dark { display: none; }
+[data-theme="dark"] .logo-light { display: none; }
+[data-theme="dark"] .logo-dark { display: block; }
+::selection { background-color: var(--primary); color: #ffffff; }
+::-moz-selection { background-color: var(--primary); color: #ffffff; }
+.top-navbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: var(--bg-surface);
+padding: 15px 5%;
+border-bottom: 1px solid var(--border);
+position: sticky;
+top: 0;
+z-index: 900;
+transition: background-color 0.3s;
+}
+.top-navbar .logo {
+display: flex;
+align-items: center;
+}
+.top-navbar .actions {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+.icon-btn {
+background: var(--bg-body);
+border: 1px solid var(--border);
+color: var(--text-main);
+width: 42px;
+height: 42px;
+border-radius: 50%;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.1rem;
+transition: all 0.2s;
+}
+.icon-btn:hover {
+background: var(--primary-light);
+color: var(--primary);
+border-color: var(--primary);
+}
+.back-btn {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+background: transparent;
+color: var(--text-main);
+border: 1px solid var(--border);
+padding: 8px 20px;
+border-radius: 30px;
+font-family: inherit;
+font-size: 0.95rem;
+font-weight: 700;
+cursor: pointer;
+text-decoration: none;
+transition: all 0.2s;
+}
+.back-btn:hover {
+background: var(--bg-body);
+border-color: var(--text-muted);
+}
+.main-content {
+flex: 1;
+padding: 60px 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+}
+.tutorial-container {
+width: 100%;
+max-width: 800px;
+}
+.page-header {
+text-align: center;
+margin-bottom: 50px;
+animation: fadeIn 0.4s ease;
+}
+.page-header h1 {
+font-size: 2.2rem;
+font-weight: 900;
+margin-bottom: 15px;
+color: var(--text-main);
+}
+.page-header p {
+color: var(--text-muted);
+font-size: 1.1rem;
+max-width: 600px;
+margin: 0 auto;
+}
+.steps-container {
+display: flex;
+flex-direction: column;
+gap: 40px;
+}
+.step-card {
+background: var(--bg-surface);
+border: 1px solid var(--border);
+border-radius: var(--radius-lg);
+padding: 35px;
+box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+transition: all 0.3s ease;
+animation: fadeIn 0.5s ease;
+position: relative;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+}
+[data-theme="dark"] .step-card {
+box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.step-card:hover {
+border-color: var(--primary);
+transform: translateY(-4px);
+box-shadow: 0 10px 30px rgba(15, 118, 110, 0.08);
+}
+.step-header {
+display: flex;
+align-items: center;
+gap: 15px;
+margin-bottom: 20px;
+}
+.step-number {
+width: 45px;
+height: 45px;
+background: var(--primary-light);
+color: var(--primary);
+border-radius: 12px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.4rem;
+font-weight: 900;
+flex-shrink: 0;
+}
+.step-title {
+font-size: 1.4rem;
+font-weight: 800;
+color: var(--text-main);
+margin: 0;
+}
+.step-desc {
+font-size: 1.05rem;
+color: var(--text-muted);
+margin-bottom: 25px;
+line-height: 1.8;
+}
+.step-image-wrapper {
+width: 100%;
+border-radius: var(--radius);
+overflow: hidden;
+border: 1px solid var(--border);
+background: var(--bg-body);
+display: flex;
+align-items: center;
+justify-content: center;
+aspect-ratio: 16 / 9;
+cursor: zoom-in;
+transition: var(--transition);
+}
+.step-image-wrapper:hover {
+border-color: var(--primary);
+opacity: 0.95;
+}
+.step-image-wrapper img {
+width: 100%;
+height: 100%;
+object-fit: contain;
+padding: 10px;
+}
+.image-placeholder {
+color: var(--text-muted);
+font-size: 1.1rem;
+font-weight: 600;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 10px;
+opacity: 0.6;
+}
+.image-placeholder i {
+font-size: 2.5rem;
+}
+.preview-modal {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: rgba(0, 0, 0, 0.85);
+z-index: 10000;
+display: none;
+align-items: center;
+justify-content: center;
+opacity: 0;
+transition: opacity 0.3s ease;
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+}
+.preview-modal.active {
+display: flex;
+opacity: 1;
+}
+.preview-modal img {
+max-width: 90%;
+max-height: 90vh;
+object-fit: contain;
+border-radius: var(--radius);
+box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+transform: scale(0.95);
+transition: transform 0.3s ease;
+}
+.preview-modal.active img {
+transform: scale(1);
+}
+.preview-close {
+position: absolute;
+top: 25px;
+right: 35px;
+color: #ffffff;
+font-size: 2rem;
+cursor: pointer;
+background: rgba(255, 255, 255, 0.1);
+width: 50px;
+height: 50px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.2s;
+}
+.preview-close:hover {
+background: rgba(255, 255, 255, 0.2);
+transform: scale(1.1);
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(15px); }
+to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 768px) {
+.top-navbar { padding: 15px 20px; }
+.main-content { padding: 40px 15px; }
+.step-card { padding: 25px 20px; }
+.page-header h1 { font-size: 1.8rem; }
+.step-image-wrapper { aspect-ratio: 4 / 3; }
+.preview-close { top: 15px; right: 15px; width: 40px; height: 40px; font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="top-navbar">
+<div class="logo">
+<img src="../../logo.png" class="logo-light" alt="GCI Logo" style="width: 120px; height: 40px;">
+<img src="../../logo-light.png" class="logo-dark" alt="GCI Logo" style="width: 120px; height: 40px;">
+</div>
+<div class="actions">
+<a href="../../index.html" class="back-btn"><i class="fa-solid fa-arrow-right"></i> الرئيسية</a>
+<button class="icon-btn theme-toggle-btn" aria-label="Toggle Theme">
+<i class="fa-solid fa-moon"></i>
+</button>
+</div>
+</header>
+
+<main class="main-content">
+<div class="tutorial-container">
+<div class="page-header">
+<h1>كيفية مطابقة اسم Slack مع Omnicampus</h1>
+<p>خطوات بسيطة لضمان مطابقة بياناتك وتجنب أي مشاكل أثناء فترة البرنامج التدريبي.</p>
+</div>
+
+<div class="steps-container">
+
+<div class="step-card">
+<div class="step-header">
+<div class="step-number">1</div>
+<h2 class="step-title">نسخ الاسم من Omnicampus</h2>
+</div>
+<p class="step-desc">قم بتسجيل الدخول إلى حسابك في منصة Omnicampus، ثم اذهب إلى ملفك الشخصي (Profile) وقم بنسخ اسمك تماماً كما يظهر هناك لتجنب أي اختلافات في المسافات أو الحروف.</p>
+<div class="step-image-wrapper preview-trigger" data-src="../assets/accountname.png">
+<img src="../assets/accountname.png" alt="نسخ الاسم من Omnicampus">
+</div>
+</div>
+
+<div class="step-card">
+<div class="step-header">
+<div class="step-number">2</div>
+<h2 class="step-title">فتح إعدادات الحساب في Slack</h2>
+</div>
+<p class="step-desc">افتح تطبيق Slack أو موقع الويب الخاص بهم، ثم اضغط على صورتك الشخصية الموجودة في الزاوية، واختر "الملف الشخصي" (Profile) لفتح القائمة الجانبية.</p>
+<div class="step-image-wrapper preview-trigger" data-src="../assets/profile menu.png">
+<img src="../assets/profile menu.png" alt="فتح إعدادات الحساب في Slack">
+</div>
+</div>
+
+<div class="step-card">
+<div class="step-header">
+<div class="step-number">3</div>
+<h2 class="step-title">تعديل الملف الشخصي</h2>
+</div>
+<p class="step-desc">من القائمة الجانبية للملف الشخصي، اضغط على زر "تعديل الملف الشخصي" (Edit profile) لتظهر لك نافذة تعديل البيانات.</p>
+<div class="step-image-wrapper preview-trigger" data-src="../assets/editprofile.png">
+<img src="../assets/editprofile.png" alt="زر تعديل الملف الشخصي">
+</div>
+</div>
+
+<div class="step-card">
+<div class="step-header">
+<div class="step-number">4</div>
+<h2 class="step-title">لصق الاسم وحفظ التعديلات</h2>
+</div>
+<p class="step-desc">في حقل "الاسم الظاهر" (Display name)، قم بلصق الاسم الذي نسخته من منصة Omnicampus وتأكد من عدم وجود مسافات زائدة. أخيراً، اضغط على زر "حفظ التغييرات" (Save changes).</p>
+<div class="step-image-wrapper preview-trigger" data-src="../assets/displaynamechange.png">
+<img src="../assets/displaynamechange.png" alt="تغيير الاسم الظاهر في Slack">
+</div>
+</div>
+
+</div>
+</div>
+</main>
+
+<div class="preview-modal" id="previewModal">
+<div class="preview-close" id="closePreviewBtn"><i class="fa-solid fa-xmark"></i></div>
+<img src="" id="previewImage" alt="Preview">
+</div>
+
+<script>
+const themeBtns = document.querySelectorAll('.theme-toggle-btn');
+const htmlEl = document.documentElement;
+const currentTheme = localStorage.getItem('theme') || 'light';
+htmlEl.setAttribute('data-theme', currentTheme);
+updateIcons(currentTheme);
+
+themeBtns.forEach(btn => {
+btn.addEventListener('click', () => {
+const newTheme = htmlEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+htmlEl.setAttribute('data-theme', newTheme);
+localStorage.setItem('theme', newTheme);
+updateIcons(newTheme);
+});
+});
+
+function updateIcons(theme) {
+themeBtns.forEach(btn => {
+const icon = btn.querySelector('i');
+if(theme === 'dark') {
+icon.className = 'fa-solid fa-sun';
+} else {
+icon.className = 'fa-solid fa-moon';
+}
+});
+}
+
+const previewModal = document.getElementById('previewModal');
+const previewImage = document.getElementById('previewImage');
+const closePreviewBtn = document.getElementById('closePreviewBtn');
+const triggers = document.querySelectorAll('.preview-trigger');
+
+function openPreview(src) {
+previewImage.src = src;
+previewModal.classList.add('active');
+document.body.style.overflow = 'hidden';
+}
+
+function closePreview() {
+previewModal.classList.remove('active');
+setTimeout(() => {
+previewImage.src = '';
+document.body.style.overflow = '';
+}, 300);
+}
+
+triggers.forEach(trigger => {
+trigger.addEventListener('click', () => {
+const src = trigger.getAttribute('data-src');
+openPreview(src);
+});
+});
+
+closePreviewBtn.addEventListener('click', closePreview);
+previewModal.addEventListener('click', (e) => {
+if (e.target === previewModal) {
+closePreview();
+}
+});
+</script>
+</body>
+</html>
