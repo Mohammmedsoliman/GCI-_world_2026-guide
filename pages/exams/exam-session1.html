@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>اختبار الجلسة الأولى - GCI 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+--bg-body: #fafafa;
+--bg-surface: #ffffff;
+--text-main: #27272a;
+--text-muted: #71717a;
+--primary: #0f766e;
+--primary-light: #ccfbf1;
+--border: #e4e4e7;
+--danger: #ef4444;
+--danger-light: #fee2e2;
+--success: #10b981;
+--success-light: #d1fae5;
+--warning: #f59e0b;
+--warning-light: #fef3c7;
+--radius: 8px;
+--radius-md: 12px;
+--radius-lg: 16px;
+--transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+[data-theme="dark"] {
+--bg-body: #09090b;
+--bg-surface: #18181b;
+--text-main: #f4f4f5;
+--text-muted: #a1a1aa;
+--primary: #14b8a6;
+--primary-light: rgba(20, 184, 166, 0.15);
+--border: #27272a;
+--danger-light: rgba(239, 68, 68, 0.15);
+--success-light: rgba(16, 185, 129, 0.15);
+--warning-light: rgba(245, 158, 11, 0.15);
+}
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+html, body {
+overflow-x: hidden;
+scroll-behavior: smooth;
+}
+body {
+font-family: 'Cairo', sans-serif;
+background-color: var(--bg-body);
+color: var(--text-main);
+line-height: 1.85;
+display: flex;
+flex-direction: column;
+min-height: 100vh;
+transition: background-color 0.3s, color 0.3s;
+user-select: none;
+-webkit-user-select: none;
+}
+.logo-dark { display: none; }
+[data-theme="dark"] .logo-light { display: none; }
+[data-theme="dark"] .logo-dark { display: block; }
+::selection { background-color: var(--primary); color: #ffffff; }
+::-moz-selection { background-color: var(--primary); color: #ffffff; }
+.top-navbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: var(--bg-surface);
+padding: 15px 40px;
+border-bottom: 1px solid var(--border);
+position: sticky;
+top: 0;
+z-index: 900;
+transition: background-color 0.3s;
+}
+.top-navbar .logo {
+display: flex;
+align-items: center;
+}
+.top-navbar .actions {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+.icon-btn {
+background: var(--bg-body);
+border: 1px solid var(--border);
+color: var(--text-main);
+width: 42px;
+height: 42px;
+border-radius: 50%;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.1rem;
+transition: all 0.2s;
+}
+.icon-btn:hover {
+background: var(--primary-light);
+color: var(--primary);
+border-color: var(--primary);
+}
+.main-content {
+flex: 1;
+padding: 60px 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+}
+#warning-box {
+position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+background: var(--danger); color: white; padding: 12px 24px;
+border-radius: var(--radius); font-weight: 800; font-size: 1.1rem;
+display: none; z-index: 10000; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+border: 2px solid var(--bg-surface);
+}
+.exam-container {
+width: 100%;
+max-width: 850px;
+position: relative;
+}
+.exam-card {
+background: var(--bg-surface);
+border: 1px solid var(--border);
+border-radius: var(--radius-lg);
+padding: 40px;
+box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+margin-bottom: 24px;
+transition: all 0.3s ease;
+width: 100%;
+}
+[data-theme="dark"] .exam-card { box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.exam-header { text-align: center; }
+.exam-header h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 15px; color: var(--text-main); }
+.exam-header p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 30px; line-height: 1.8; font-weight: 600; text-align: right; }
+.btn {
+display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+padding: 12px 28px; border-radius: var(--radius); font-weight: 700; font-size: 1rem;
+cursor: pointer; transition: var(--transition); border: 1px solid transparent; text-align: center;
+font-family: inherit;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(15, 118, 110, 0.3); }
+.btn-outline { background: var(--bg-surface); color: var(--text-main); border-color: var(--border); }
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+.btn-flag { background: var(--warning-light); color: #b45309; border-color: var(--warning); }
+.btn-flag:hover { background: var(--warning); color: #fff; transform: translateY(-2px); }
+[data-theme="dark"] .btn-flag { color: #fcd34d; }
+[data-theme="dark"] .btn-flag:hover { color: #18181b; }
+.timer-wrapper {
+display: flex; justify-content: space-between; align-items: center;
+background: var(--bg-surface); border: 1px solid var(--border);
+border-radius: var(--radius); padding: 15px 24px; margin-bottom: 24px;
+font-size: 1.1rem; font-weight: 800; color: var(--text-main);
+box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+}
+.timer-wrapper i { color: var(--primary); margin-left: 8px; font-size: 1.2rem; }
+.timer-danger { color: var(--danger); animation: pulse 1s infinite; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+#q-navigator {
+display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+margin-bottom: 24px; padding: 20px; background: var(--bg-surface);
+border-radius: var(--radius-md); border: 1px solid var(--border);
+}
+.nav-dot {
+width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;
+border-radius: 8px; font-weight: 800; font-size: 1rem; cursor: pointer;
+background: var(--bg-body); border: 1px solid var(--border); color: var(--text-muted);
+transition: var(--transition);
+}
+.nav-dot:hover { border-color: var(--primary); color: var(--primary); }
+.nav-dot.answered { background: var(--primary); color: #fff; border-color: var(--primary); }
+.nav-dot.flagged { background: var(--warning-light); border-color: var(--warning); color: var(--warning); }
+.nav-dot.active { box-shadow: 0 0 0 3px var(--primary-light); border-color: var(--primary); transform: translateY(-2px); }
+.question-card { display: none; animation: fadeIn 0.4s ease; width: 100%; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.question-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+.q-number { color: var(--text-muted); font-weight: 800; font-size: 1.1rem;}
+.type-badge { background: var(--primary-light); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; }
+.question-text { font-size: 1.4rem; font-weight: 800; margin-bottom: 25px; color: var(--text-main); line-height: 1.6; }
+.options { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.option-label {
+display: flex; align-items: flex-start; gap: 15px; background: var(--bg-body);
+padding: 15px 20px; border-radius: var(--radius-md); margin: 0;
+cursor: pointer; border: 1px solid var(--border); font-weight: 700;
+transition: var(--transition); font-size: 1.05rem; color: var(--text-main);
+word-wrap: break-word; white-space: normal;
+}
+.option-label span { flex: 1; line-height: 1.5; margin-top: -2px; }
+.option-label:hover { border-color: var(--primary); background: var(--bg-surface); }
+input[type="radio"], input[type="checkbox"] { accent-color: var(--primary); transform: scale(1.2); cursor: pointer; margin-top: 5px; flex-shrink: 0; }
+.text-input {
+width: 100%; padding: 15px; border-radius: var(--radius-md); border: 1px solid var(--border);
+font-family: inherit; font-size: 1.05rem; font-weight: 600; outline: none;
+background: var(--bg-body); transition: var(--transition); color: var(--text-main);
+}
+.text-input:focus { border-color: var(--primary); background: var(--bg-surface); box-shadow: 0 0 0 3px var(--primary-light); }
+.correct-opt { background: var(--success-light) !important; border-color: var(--success) !important; color: #065f46 !important; pointer-events: none; }
+.wrong-opt { background: var(--danger-light) !important; border-color: var(--danger) !important; color: #991b1b !important; pointer-events: none; }
+.blue-opt { background: rgba(59, 130, 246, 0.15) !important; border-color: #3b82f6 !important; color: #1d4ed8 !important; pointer-events: none; }
+[data-theme="dark"] .correct-opt { color: #34d399 !important; }
+[data-theme="dark"] .wrong-opt { color: #f87171 !important; }
+[data-theme="dark"] .blue-opt { color: #60a5fa !important; }
+.unanswered-alert {
+padding: 12px 20px; background: var(--danger-light); color: var(--danger);
+border: 1px dashed var(--danger); border-radius: var(--radius-md);
+margin-bottom: 20px; font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 10px;
+}
+.nav-buttons { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; border-top: 1px solid var(--border); padding-top: 25px; flex-wrap: wrap; gap: 15px; width: 100%; }
+.nav-buttons-group { display: flex; gap: 12px; flex-wrap: wrap; }
+@media (max-width: 768px) {
+.top-navbar { padding: 15px 20px; }
+.main-content { padding: 40px 15px; }
+.exam-card { padding: 25px 20px; }
+.nav-buttons { flex-direction: column; align-items: stretch; }
+.nav-buttons-group { width: 100%; flex-direction: column; }
+.btn { width: 100%; }
+.option-label { align-items: center; }
+.option-label span { margin-top: 0; }
+input[type="radio"], input[type="checkbox"] { margin-top: 0; }
+}
+</style>
+</head>
+<body>
+
+<div id="warning-box">⚠️ تنبيه!</div>
+
+<header class="top-navbar">
+<div class="actions">
+<button class="icon-btn theme-toggle-btn" aria-label="Toggle Theme">
+<i class="fa-solid fa-moon"></i>
+</button>
+</div>
+</header>
+
+<main class="main-content">
+<div class="exam-container">
+<div id="welcome-screen" class="exam-card exam-header">
+<h1 id="display-title">اختبار الجلسة الأولى</h1>
+<p style="text-align: right;">
+1. هذا الاختبار مراقب إلكترونياً ومقيد بوقت زمني (15 دقيقة).<br>
+2. يُمنع منعاً باتاً الانتقال إلى نوافذ أخرى أو استخدام اختصارات لوحة المفاتيح.<br>
+3. سيتم إنهاء الاختبار تلقائياً في حال رصد محاولات غش متكررة.<br>
+4. يبدأ الاختبار فور الضغط على الزر بالأسفل وتفعيل وضع الشاشة الكاملة.
+</p>
+<button class="btn btn-primary" id="start-exam-btn" style="width: 100%; max-width: 300px; margin: 0 auto;">بدء الاختبار الآن</button>
+<br><br>
+<a href="exams.html" class="btn btn-outline" style="width: 100%; max-width: 300px; margin: 0 auto; text-decoration:none;"><i class="fa-solid fa-arrow-right"></i> العودة للامتحانات</a>
+</div>
+
+<div id="exam-ui" style="display: none;">
+<div class="timer-wrapper" id="timer-bar">
+<span><i class="fa-solid fa-hourglass-half"></i> الوقت المتبقي:</span>
+<span id="time-display">15:00</span>
+</div>
+
+<div id="q-navigator"></div>
+
+<div id="questions-container" class="exam-card"></div>
+
+<div id="nav-area" class="nav-buttons">
+<div class="nav-buttons-group">
+<button class="btn btn-outline" id="prev-btn" onclick="changeQuestion(-1)">السابق</button>
+<button class="btn btn-flag" onclick="toggleFlag()"><i class="fa-regular fa-flag"></i> تأجيل للمراجعة</button>
+</div>
+<div class="nav-buttons-group">
+<button class="btn btn-primary" id="next-btn" onclick="changeQuestion(1)">السؤال التالي</button>
+<button class="btn btn-primary" id="submit-btn" style="display:none;" onclick="finishExam(false)">تسليم الاختبار <i class="fa-solid fa-check-double"></i></button>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+<script>
+const themeBtns = document.querySelectorAll('.theme-toggle-btn');
+const htmlEl = document.documentElement;
+const currentTheme = localStorage.getItem('theme') || 'light';
+htmlEl.setAttribute('data-theme', currentTheme);
+updateIcons(currentTheme);
+
+themeBtns.forEach(btn => {
+btn.addEventListener('click', () => {
+const newTheme = htmlEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+htmlEl.setAttribute('data-theme', newTheme);
+localStorage.setItem('theme', newTheme);
+updateIcons(newTheme);
+});
+});
+
+function updateIcons(theme) {
+themeBtns.forEach(btn => {
+const icon = btn.querySelector('i');
+if(theme === 'dark') {
+icon.className = 'fa-solid fa-sun';
+} else {
+icon.className = 'fa-solid fa-moon';
+}
+});
+}
+
+const examId = 'session1';
+const examQuestions=[
+{
+QuestionType:'mcq',
+Question:'What is the primary goal of Data Analysis?',
+OptionA:'To store data only',
+OptionB:'To extract useful insights that help understand data and make decisions',
+OptionC:'To design websites',
+OptionD:'To write code without using data',
+CorrectAnswer:'B'
+},
+{
+QuestionType:'mcq',
+Question:'What does Data Analysis mean?',
+OptionA:'The process of collecting, transforming, and examining data to extract useful information',
+OptionB:'The process of creating databases only',
+OptionC:'The process of creating graphics only',
+OptionD:'The process of developing mobile applications',
+CorrectAnswer:'A'
+},
+{
+QuestionType:'mcq',
+Question:'Which of the following is commonly used for data analysis in Python?',
+OptionA:'Pandas',
+OptionB:'Photoshop',
+OptionC:'Figma',
+OptionD:'Unity',
+CorrectAnswer:'A'
+},
+{
+QuestionType:'multi',
+Question:'Which of the following are common types of data used in Data Analysis? (Choose two)',
+OptionA:'Numerical Data',
+OptionB:'Categorical Data',
+OptionC:'HTML Tags',
+OptionD:'CSS Selectors',
+CorrectAnswer:'A,B'
+},
+{
+QuestionType:'mcq',
+Question:'What is Numerical Data?',
+OptionA:'Data containing numbers that can be used in calculations',
+OptionB:'Data containing images only',
+OptionC:'Data containing source code only',
+OptionD:'Data containing links only',
+CorrectAnswer:'A'
+},
+{
+QuestionType:'mcq',
+Question:'Which of the following is an example of Categorical Data?',
+OptionA:'Age = 18',
+OptionB:'Height = 175.5',
+OptionC:'Color = Blue',
+OptionD:'Salary = 10000',
+CorrectAnswer:'C'
+},
+{
+QuestionType:'mcq',
+Question:'Which step usually comes after collecting data in the analysis process?',
+OptionA:'Data Cleaning',
+OptionB:'Deleting the project',
+OptionC:'Creating a website',
+OptionD:'Stopping the database',
+CorrectAnswer:'A'
+},
+{
+QuestionType:'multi',
+Question:'Which of the following can be problems in raw data? (Choose two)',
+OptionA:'Missing Values',
+OptionB:'Duplicate Records',
+OptionC:'Fast Internet',
+OptionD:'High Screen Resolution',
+CorrectAnswer:'A,B'
+},
+{
+QuestionType:'mcq',
+Question:'What are Missing Values?',
+OptionA:'Values that are absent or not provided in some records',
+OptionB:'Repeated values',
+OptionC:'Only correct values',
+OptionD:'Sorted values',
+CorrectAnswer:'A'
+},
+{
+QuestionType:'mcq',
+Question:'Why is Data Cleaning performed before analysis?',
+OptionA:'To increase the file size',
+OptionB:'To improve data quality and reduce errors',
+OptionC:'To hide the results',
+OptionD:'To change the operating system',
+CorrectAnswer:'B'
+},
+{
+QuestionType:'mcq',
+Question:'Which measure represents the middle value of an ordered dataset?',
+OptionA:'Mean',
+OptionB:'Median',
+OptionC:'Mode',
+OptionD:'Range',
+CorrectAnswer:'B'
+},
+{
+QuestionType:'mcq',
+Question:'What is the Mean?',
+OptionA:'The most frequently occurring value',
+OptionB:'The middle value',
+OptionC:'The sum of all values divided by the number of values',
+OptionD:'The difference between the largest and smallest values',
+CorrectAnswer:'C'
+},
+{
+QuestionType:'mcq',
+Question:'What is the Mode in a dataset?',
+OptionA:'The largest value',
+OptionB:'The most frequently occurring value',
+OptionC:'The smallest value',
+OptionD:'The average value',
+CorrectAnswer:'B'
+},
+{
+QuestionType:'complete',
+Question:'The difference between the largest and smallest value in a dataset is called the _______.',
+CorrectAnswer:'Range'
+},
+{
+QuestionType:'multi',
+Question:'Which of the following can be used to visualize data? (Choose two)',
+OptionA:'Bar Chart',
+OptionB:'Line Chart',
+OptionC:'Python Loop',
+OptionD:'SQL Query',
+CorrectAnswer:'A,B'
+},
+{
+QuestionType:'mcq',
+Question:'Which type of chart is commonly used to compare values across different categories?',
+OptionA:'Bar Chart',
+OptionB:'Line Chart',
+OptionC:'Scatter Plot only',
+OptionD:'Text File',
+CorrectAnswer:'A'
+},
+{
+QuestionType:'mcq',
+Question:'Which chart is commonly used to show changes in data over time?',
+OptionA:'Pie Chart',
+OptionB:'Line Chart',
+OptionC:'Bar Chart only',
+OptionD:'Table only',
+CorrectAnswer:'B'
+},
+{
+QuestionType:'mcq',
+Question:'What is the purpose of using Correlation in Data Analysis?',
+OptionA:'To measure the relationship between two variables',
+OptionB:'To delete all data',
+OptionC:'To encrypt files',
+OptionD:'To create a user interface',
+CorrectAnswer:'A'
+},
+{
+QuestionType:'complete',
+Question:'The variable that we want to explain or predict is often called the _______ Variable.',
+CorrectAnswer:'Dependent'
+},
+{
+QuestionType:'mcq',
+Question:'Which of the following is an example of an analytical question?',
+OptionA:'Why did the product sales decrease?',
+OptionB:'What color is the computer screen?',
+OptionC:'What operating system version is installed?',
+OptionD:'How many keys are on the keyboard?',
+CorrectAnswer:'A'
+}
+];
+
+let userAnswers = {};
+let flaggedQuestions = {};
+let examStarted = false;
+let cheatAttempts = 0;
+let timeLeft = 900;
+let timerInterval;
+let currentQIndex = 0;
+
+document.getElementById('start-exam-btn').addEventListener('click', () => {
+document.documentElement.requestFullscreen().then(() => {
+document.getElementById('welcome-screen').style.display = 'none';
+document.getElementById('exam-ui').style.display = 'block';
+document.querySelector('.top-navbar').style.display = 'none';
+buildNavigator();
+renderQuestions();
+showQuestion(0);
+startTimer();
+examStarted = true;
+startDevToolsTrap();
+}).catch(() => alert("يجب السماح بوضع الشاشة الكاملة لبدء الاختبار."));
+});
+
+function buildNavigator() {
+const nav = document.getElementById('q-navigator');
+nav.innerHTML = '';
+examQuestions.forEach((_, i) => {
+nav.innerHTML += `<div class="nav-dot" id="nav-dot-${i}" onclick="jumpToQuestion(${i})">${i + 1}</div>`;
+});
+}
+
+function renderQuestions() {
+const container = document.getElementById('questions-container');
+container.innerHTML = '';
+examQuestions.forEach((q, index) => {
+const type = (q.QuestionType || 'mcq').toLowerCase().trim();
+let typeLabel = "اختيار من متعدد";
+
+if (type === 'multi') typeLabel = "اختر كل الإجابات الصحيحة";
+if (type === 'complete') typeLabel = "أكمل الفراغ";
+
+let inputsHTML = '';
+if (type === 'mcq') {
+inputsHTML = ['A','B','C','D'].filter(opt => q['Option'+opt]).map(opt => `
+<label class="option-label"><input type="radio" name="q${index}" value="${opt}" onchange="saveAnswer(${index}, '${opt}')"> <span>${q['Option'+opt]}</span></label>
+`).join('');
+} else if (type === 'multi') {
+inputsHTML = ['A','B','C','D'].filter(opt => q['Option'+opt]).map(opt => `
+<label class="option-label"><input type="checkbox" value="${opt}" onchange="saveMultiAnswer(${index}, '${opt}', this.checked)"> <span>${q['Option'+opt]}</span></label>
+`).join('');
+} else if (type === 'complete') {
+inputsHTML = `<input type="text" class="text-input" placeholder="اكتب إجابتك هنا..." oninput="saveAnswer(${index}, this.value)">`;
+}
+
+container.innerHTML += `
+<div class="question-card" id="q-card-${index}">
+<div class="question-meta">
+<span class="q-number">السؤال ${index + 1} من ${examQuestions.length}</span>
+<span class="type-badge">${typeLabel}</span>
+</div>
+<div class="question-text">${q.Question}</div>
+<div class="options">${inputsHTML}</div>
+</div>
+`;
+});
+}
+
+function saveAnswer(qIndex, value) {
+userAnswers['q'+qIndex] = value;
+updateNavigator();
+}
+
+window.saveMultiAnswer = function(qIndex, value, isChecked) {
+if (!userAnswers['q'+qIndex]) userAnswers['q'+qIndex] = [];
+if (isChecked) userAnswers['q'+qIndex].push(value);
+else userAnswers['q'+qIndex] = userAnswers['q'+qIndex].filter(v => v !== value);
+updateNavigator();
+}
+
+window.toggleFlag = function() {
+flaggedQuestions[currentQIndex] = !flaggedQuestions[currentQIndex];
+updateNavigator();
+}
+
+function updateNavigator() {
+examQuestions.forEach((_, i) => {
+const dot = document.getElementById(`nav-dot-${i}`);
+dot.className = 'nav-dot';
+if (i === currentQIndex) dot.classList.add('active');
+
+const ans = userAnswers['q'+i];
+const hasAnswer = Array.isArray(ans) ? ans.length > 0 : (ans && ans.toString().trim() !== '');
+if (hasAnswer) dot.classList.add('answered');
+if (flaggedQuestions[i]) dot.classList.add('flagged');
+});
+}
+
+window.changeQuestion = function(step) {
+let newIndex = currentQIndex + step;
+if (newIndex >= 0 && newIndex < examQuestions.length) showQuestion(newIndex);
+}
+
+window.jumpToQuestion = function(index) { showQuestion(index); }
+
+function showQuestion(index) {
+document.querySelectorAll('.question-card').forEach(card => card.style.display = 'none');
+document.getElementById(`q-card-${index}`).style.display = 'block';
+currentQIndex = index;
+
+document.getElementById('prev-btn').style.visibility = (index === 0) ? 'hidden' : 'visible';
+if (index === examQuestions.length - 1) {
+document.getElementById('next-btn').style.display = 'none';
+document.getElementById('submit-btn').style.display = 'inline-flex';
+} else {
+document.getElementById('next-btn').style.display = 'inline-flex';
+document.getElementById('submit-btn').style.display = 'none';
+}
+updateNavigator();
+}
+
+function startTimer() {
+const display = document.getElementById('time-display');
+const timerBar = document.getElementById('timer-bar');
+timerInterval = setInterval(() => {
+if (timeLeft <= 0) {
+clearInterval(timerInterval); finishExam(true);
+} else {
+let m = Math.floor(timeLeft / 60); let s = timeLeft % 60;
+display.innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+timeLeft--;
+if(timeLeft < 60) timerBar.classList.add('timer-danger');
+}
+}, 1000);
+}
+
+function logViolation(msg) {
+if (!examStarted) return;
+cheatAttempts++;
+const warnBox = document.getElementById('warning-box');
+warnBox.innerText = `⚠️ مخالفة (${cheatAttempts}/3): ${msg}`;
+warnBox.style.display = 'block';
+setTimeout(() => warnBox.style.display = 'none', 4000);
+if (cheatAttempts >= 3) finishExam(false, true);
+}
+
+function startDevToolsTrap() {
+setInterval(() => {
+const start = performance.now(); debugger;
+if (performance.now() - start > 100) logViolation("محاولة استخدام أدوات المطورين.");
+}, 1000);
+}
+
+window.addEventListener('blur', () => { logViolation("تم رصد محاولة الانتقال إلى نافذة أخرى."); navigator.clipboard.writeText(""); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) logViolation("تم الانتقال إلى نافذة أو تطبيق آخر."); });
+document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && examStarted) logViolation("الخروج من الشاشة الكاملة غير مسموح أثناء الاختبار."); });
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+const forbiddenKeys = ['c','v','x','u','i','p','s','a'];
+if (e.key === 'F12' || (e.ctrlKey && forbiddenKeys.includes(e.key.toLowerCase()))) {
+e.preventDefault(); logViolation("استخدام اختصارات لوحة المفاتيح معطل.");
+}
+});
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('paste', e => e.preventDefault());
+
+window.finishExam = function(isTimeOut = false, isCheating = false) {
+if (!examStarted) return;
+examStarted = false;
+clearInterval(timerInterval);
+document.getElementById('exam-ui').style.display = 'none';
+document.querySelector('.top-navbar').style.display = 'flex';
+
+let score = 0;
+let autoGradedQuestions = examQuestions.length;
+
+examQuestions.forEach((q, index) => {
+const type = (q.QuestionType || 'mcq').toLowerCase().trim();
+const uAns = userAnswers['q'+index];
+const cAns = q.CorrectAnswer ? q.CorrectAnswer.toString().trim() : '';
+
+if (type === 'mcq') {
+if (uAns === cAns) score++;
+} else if (type === 'complete') {
+if (uAns && uAns.toLowerCase().trim() === cAns.toLowerCase()) score++;
+} else if (type === 'multi') {
+const correctArr = cAns.split(',').map(s=>s.trim()).sort().join(',');
+const userArr = Array.isArray(uAns) ? uAns.sort().join(',') : '';
+if (correctArr === userArr && userArr !== '') score++;
+}
+});
+
+if (!isCheating) {
+let examScores = JSON.parse(localStorage.getItem('gci_exam_scores')) || {};
+examScores[examId] = { score: score, total: autoGradedQuestions };
+localStorage.setItem('gci_exam_scores', JSON.stringify(examScores));
+}
+
+let finalTitle = isCheating ? "تم إلغاء الاختبار" : "تم إنهاء الاختبار بنجاح";
+let finalMessage = `تم التقييم بنجاح.`;
+if (isTimeOut) finalMessage = `انتهى الوقت المخصص. تم تسليم الإجابات تلقائياً.`;
+if (isCheating) finalMessage = `تم إنهاء الاختبار وإلغاء النتيجة بسبب تجاوز الحد المسموح من المخالفات.`;
+
+if (document.fullscreenElement) document.exitFullscreen();
+
+let reviewBtn = (!isCheating) ? `<button class="btn btn-primary" style="margin-top:24px;" onclick="startReview()"><i class="fa-solid fa-list-check"></i> مراجعة الإجابات</button>` : '';
+
+const container = document.querySelector('.exam-container');
+container.innerHTML = `
+<div class="exam-card exam-header" style="margin-top: 40px; text-align: center;">
+<h1 style="color: ${isCheating ? 'var(--danger)' : 'var(--primary)'};">${finalTitle}</h1>
+<p style="font-size: 1.2rem; text-align: center;">${finalMessage}</p>
+<div style="background: var(--bg-body); border: 1px solid var(--border); padding: 24px; border-radius: var(--radius-md); margin-top: 24px;">
+<h2 style="font-size: 1.5rem; color: var(--text-main); margin-bottom: 10px;">نتيجتك</h2>
+<h3 style="font-size: 2.5rem; color: var(--primary); margin: 0;">${score} / ${autoGradedQuestions}</h3>
+</div>
+<div style="display: flex; justify-content: center; gap: 16px; margin-top: 32px; flex-wrap: wrap;">
+${reviewBtn}
+<a href="exams.html" class="btn btn-outline" style="margin-top:24px;"><i class="fa-solid fa-arrow-right"></i> العودة للامتحانات</a>
+</div>
+</div>
+`;
+}
+
+window.startReview = function() {
+const container = document.querySelector('.exam-container');
+container.innerHTML = `
+<div class="exam-card exam-header" style="margin-bottom: 32px; padding: 32px; text-align: center;">
+<h1 style="margin-bottom: 15px;">مراجعة الإجابات</h1>
+</div>
+<div id="review-container"></div>
+<div style="text-align:center; margin:40px 0;">
+<a href="exams.html" class="btn btn-primary"><i class="fa-solid fa-arrow-right"></i> إنهاء المراجعة والعودة</a>
+</div>
+`;
+const revContainer = document.getElementById('review-container');
+
+examQuestions.forEach((q, index) => {
+const type = (q.QuestionType || 'mcq').toLowerCase().trim();
+const ans = userAnswers['q'+index];
+const isUnanswered = Array.isArray(ans) ? ans.length === 0 : (!ans || ans.toString().trim() === '');
+const uAns = ans || '';
+const cAns = q.CorrectAnswer ? q.CorrectAnswer.toString().trim() : '';
+let contentHTML = '';
+
+let unansweredBadge = isUnanswered ? `<div class="unanswered-alert"><i class="fa-solid fa-circle-exclamation"></i> لم تقم بالإجابة على هذا السؤال!</div>` : '';
+let cardBorderColor = isUnanswered ? 'var(--danger)' : 'var(--border)';
+
+if (type === 'mcq' || type === 'multi') {
+const correctArr = type === 'multi' ? cAns.split(',').map(s=>s.trim()) : [cAns];
+const userArr = Array.isArray(uAns) ? uAns : [uAns];
+const isCorrectOverall = (correctArr.slice().sort().join(',') === userArr.slice().sort().join(',')) && !isUnanswered;
+
+contentHTML = ['A','B','C','D'].filter(opt => q['Option'+opt]).map(opt => {
+let statusClass = '';
+let icon = '';
+const isCorrectOpt = correctArr.includes(opt);
+const isSelected = userArr.includes(opt);
+
+if (isUnanswered) {
+if (isCorrectOpt) {
+statusClass = 'wrong-opt';
+icon = '<i class="fa-solid fa-xmark"></i>';
+}
+} else if (type === 'multi' && !isCorrectOverall) {
+if (isCorrectOpt && isSelected) {
+statusClass = 'blue-opt';
+icon = '<i class="fa-solid fa-check"></i>';
+} else if (isCorrectOpt && !isSelected) {
+statusClass = 'wrong-opt';
+icon = '<i class="fa-solid fa-xmark"></i>';
+} else if (!isCorrectOpt && isSelected) {
+statusClass = 'wrong-opt';
+icon = '<i class="fa-solid fa-xmark"></i>';
+}
+} else {
+if (isCorrectOpt) { 
+statusClass = 'correct-opt'; 
+icon = '<i class="fa-solid fa-check"></i>'; 
+} else if (isSelected) { 
+statusClass = 'wrong-opt'; 
+icon = '<i class="fa-solid fa-xmark"></i>'; 
+}
+}
+
+return `
+<div class="option-label ${statusClass}" style="cursor:default;">
+<strong>${opt}:</strong> <span>${q['Option'+opt]}</span> 
+${icon ? `<span style="margin-right: auto; font-size: 1.2rem;">${icon}</span>` : ''}
+</div>
+`;
+}).join('');
+} else if (type === 'complete') {
+const isCorrect = !isUnanswered && (uAns.toLowerCase().trim() === cAns.toLowerCase());
+contentHTML = `
+<div style="padding:15px 20px; border-radius:var(--radius-md); background:${isUnanswered ? 'var(--danger-light)' : (isCorrect ? 'var(--success-light)' : 'var(--danger-light)')}; color:${isUnanswered ? 'var(--danger)' : (isCorrect ? 'var(--success)' : 'var(--danger)')}; border:1px solid ${isUnanswered ? 'var(--danger)' : (isCorrect ? 'var(--success)' : 'var(--danger)')}; margin-bottom:15px; font-weight: 700; font-size: 1.05rem; display: flex; justify-content: space-between;">
+<span><strong>إجابتك:</strong> ${isUnanswered ? 'لم يتم الإجابة' : uAns}</span>
+<span>${isCorrect ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>'}</span>
+</div>
+${!isCorrect ? `<div style="padding:15px 20px; background:var(--bg-body); border: 1px solid var(--border); border-radius:var(--radius-md); font-weight: 700;"><strong>الإجابة الصحيحة:</strong> ${cAns}</div>` : ''}
+`;
+}
+
+revContainer.innerHTML += `
+<div class="exam-card" style="margin-bottom: 24px; border-color: ${cardBorderColor};">
+<div class="question-meta">
+<span class="q-number">السؤال ${index + 1}</span>
+</div>
+${unansweredBadge}
+<div class="question-text">${q.Question}</div>
+<div class="options">${contentHTML}</div>
+</div>
+`;
+});
+};
+</script>
+</body>
+</html>
