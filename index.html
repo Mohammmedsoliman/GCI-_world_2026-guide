@@ -314,6 +314,7 @@ const errorMsg = document.getElementById('errorMsg');
 function verifyAccess() {
 const pass = passwordInput.value.trim();
 if (pass === 'ZAD_GCI2026') {
+sessionStorage.setItem('gci_developer_access', 'granted');
 window.location.href = 'intro.html';
 } else {
 errorMsg.style.display = 'block';
