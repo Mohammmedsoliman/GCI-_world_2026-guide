@@ -262,7 +262,7 @@ to { opacity: 1; transform: translateY(0); }
 <p>هذا الموقع مخصص للمطورين فقط.</p>
 <div class="en">
 <strong>Access Denied</strong><br>
-This site is currentlyrestricted to developers only.
+This site is currently restricted to developers only.
 </div>
 </div>
 
@@ -314,7 +314,7 @@ const errorMsg = document.getElementById('errorMsg');
 function verifyAccess() {
 const pass = passwordInput.value.trim();
 if (pass === 'ZAD_GCI2026') {
-sessionStorage.setItem('gci_developer_access', 'granted');
+localStorage.setItem('gci_developer_access', Date.now().toString());
 window.location.href = 'intro.html';
 } else {
 errorMsg.style.display = 'block';
